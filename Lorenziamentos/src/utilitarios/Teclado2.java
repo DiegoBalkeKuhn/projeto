@@ -6,23 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-/**
- * Classe utilitária para leitura segura de dados do teclado.
- * Versão genérica usando Reflection para converter automaticamente o tipo.
- */
+
 public class Teclado2 {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    /**
-     * Lê e converte um valor digitado pelo usuário para o tipo especificado.
-     * 
-     * @param <T>      Tipo de retorno
-     * @param mensagem Mensagem exibida antes da entrada
-     * @param tipo     Classe do tipo esperado
-     * @return valor convertido
-     */
     public static <T> T read(String mensagem, Class<T> tipo) {
         while (true) {
             System.out.print(mensagem + " ");
