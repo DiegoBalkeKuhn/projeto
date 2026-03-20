@@ -1,3 +1,5 @@
+#define _WIN32_WINNT 0x0600
+#include <winsock2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,12 +57,14 @@ int main(int argc, char *argv[]) {
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(PORT);
 
-    if (InetPton(AF_INET, argv[1], &servaddr.sin_addr) != 1) {
-        printf("IP inválido\n");
-        closesocket(sockfd);
-        WSACleanup();
-        return 1;
-    }
+   servaddr.sin_addr.s_addr = inet_addr(argv[1]);
+
+if (servaddr.sin_addr.s_addr == INADDR_NONE) {
+    printf("IP inválido\n");
+    closesocket(sockfd);
+    WSACleanup();
+    return 1;
+}
 
     char token[32];
     generate_random_string(token, 16);
