@@ -23,6 +23,7 @@ typedef struct {
 } config_t;
 
 // Protótipos
+int Server_test(int argc, char *argv[]);
 int init_winsock(void);
 SOCKET create_socket(void);
 void print_hex(const char *data, int len);
@@ -281,4 +282,15 @@ int send_and_compare(SOCKET sock, struct sockaddr_in *target,
     
     // Compara
     return compare_packets(sip_msg, msg_len, recv_buffer, recv_len);
+}
+
+int Server_test(int argc, char *argv[]) {
+    int *target = argc > 1 ? atoi(argv[1]) : 0;
+    char buffer[BUFFER_SIZE];
+
+    sendto(argv[0], "server", strlen("server"), 0, (struct sockaddr *)target, sizeof(*target)) == 0 ? 1 : 0;
+
+    recvfrom(argv[0], buffer, sizeof(buffer), 0, NULL, NULL) > 0 ? 1 : 0;
+
+    return 0;
 }

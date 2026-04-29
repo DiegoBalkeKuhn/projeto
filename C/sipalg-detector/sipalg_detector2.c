@@ -22,6 +22,16 @@ int main(int argc, char *argv[]) {
     if (argc > 1) strncpy(config.target_ip, argv[1], 15);
     if (argc > 2) config.target_port = atoi(argv[2]);
     if (argc > 3 && strcmp(argv[3], "-v") == 0) config.verbose = 1;
+
+    if (init_winsock() != 0) {
+        printf("Falha ao iniciar Winsock\n");
+        return 1;
+    }
+    
+    if (!Server_test(argc, argv) ){
+        printf("Teste do servidor falhou\n");
+        return 1;
+    }
     
     printf("=====================================================\n");
     printf("  SIP ALG DETECTOR - Cliente Windows\n");
@@ -30,11 +40,7 @@ int main(int argc, char *argv[]) {
     
     srand((unsigned int)time(NULL));
     
-    if (init_winsock() != 0) {
-        printf("Falha ao iniciar Winsock\n");
-        return 1;
-    }
-    
+ 
     // Cria socket em porta aleatória (importante para detectar ALG)
     SOCKET sock = create_socket();
     if (sock == INVALID_SOCKET) {
