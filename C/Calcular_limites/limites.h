@@ -14,7 +14,7 @@ typedef struct N { NT t; double v; struct N *L, *R; } N;
  
 /* ── Pool de nos ── */
 #define PSIZ    65536
-#define MAX_LH  6          /* [4] maximo de aplicacoes de L'Hopital */
+#define MAX_LH  6          /* [6] maximo de aplicacoes de L'Hopital */
 #define MAX_EXPR 512
  
 static N   pool[PSIZ];
